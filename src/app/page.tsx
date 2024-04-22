@@ -7,7 +7,7 @@ async function Home() {
 
 	return (
 		<main className="flex flex-col gap-4 mt-4 px-16">
-			<h2 className="text-3xl font-bold">Board list</h2>
+			<h2 className="text-3xl font-bold">Boards list</h2>
 
 			<Button as="a" href="/boards/new" className="self-end">
 				Create a board
