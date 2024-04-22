@@ -5,6 +5,7 @@ import { Input } from "@/components/features/form/Input";
 import { FormEvent } from "react";
 import { submitBoardForm } from "./formAction";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 function NewBoardForm() {
 	const router = useRouter();
@@ -18,7 +19,9 @@ function NewBoardForm() {
 
 		submitBoardForm(title)
 			.then(() => router.push("/"))
-			.catch(error => console.log(error));
+			.catch(error =>
+				toast.error("Error, could not create this board.\n Please try again later.", { duration: 6000 })
+			);
 	};
 
 	return (
