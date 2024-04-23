@@ -5,7 +5,7 @@ import { Input } from "@/components/features/form/Input";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 import toast from "react-hot-toast";
-import { submitPropositionForm } from "./formAction";
+import { submitPropositionForm } from "./newProposition.action";
 
 function NewPropositionForm() {
 	const router = useRouter();

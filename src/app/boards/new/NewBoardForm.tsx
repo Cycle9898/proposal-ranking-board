@@ -3,7 +3,7 @@
 import { Button } from "@/components/features/form/Button";
 import { Input } from "@/components/features/form/Input";
 import { FormEvent } from "react";
-import { submitBoardForm } from "./formAction";
+import { submitBoardForm } from "./newBoard.action";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
