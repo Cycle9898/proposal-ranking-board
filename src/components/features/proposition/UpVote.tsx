@@ -3,31 +3,22 @@
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { IoIosArrowUp } from "react-icons/io";
+import { handleUpVote } from "./upVote.action";
 
 type UpVoteProps = {
 	voteCount: number;
 	propositionId: number;
 };
 
-const onError = () => toast.error("You can only vote once");
-
 function UpVote({ voteCount, propositionId }: UpVoteProps) {
 	const router = useRouter();
 
+	const onError = () => toast.error("You can only vote once");
+
 	const handleClick = () => {
-		fetch(`/api/propositions/${propositionId}/votes`, {
-			method: "POST"
-		})
-			.then(res => {
-				if (res.status === 201) {
-					router.refresh();
-					return;
-				}
-				onError();
-			})
-			.catch(() => {
-				onError();
-			});
+		handleUpVote(propositionId)
+			.then(() => router.refresh())
+			.catch(() => onError());
 	};
 
 	return (
