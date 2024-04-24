@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import { prisma } from "@/db/prisma";
 import { Button } from "@/components/features/form/Button";
 import Proposition from "@/components/features/proposition/PropositionLine";
@@ -32,7 +31,7 @@ async function BoardPage({ params }: BoardPageProps) {
 
 	return (
 		<div className="flex flex-col gap-6">
-			<Button as="a" href={`/boards/${boardId}/proposition/new`} className="self-end">
+			<Button as="a" href={`/boards/${boardId}/new-proposition`} className="self-end">
 				Suggest a proposition
 			</Button>
 
