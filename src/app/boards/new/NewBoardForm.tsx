@@ -6,6 +6,7 @@ import { FormEvent } from "react";
 import { submitBoardForm } from "./newBoard.action";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { CancelButton } from "@/components/features/form/CancelButton";
 
 function NewBoardForm() {
 	const router = useRouter();
@@ -28,9 +29,15 @@ function NewBoardForm() {
 		<form onSubmit={handleSubmit} className="flex flex-col max-w-3xl gap-4">
 			<Input label="Board title" name="title" />
 
-			<Button type="submit" className="self-center">
-				Create board
-			</Button>
+			<div className="self-center flex items-center gap-4">
+				<Button type="submit" className="self-center">
+					Create board
+				</Button>
+
+				<CancelButton type="button" onClick={() => router.push("/")}>
+					Cancel
+				</CancelButton>
+			</div>
 		</form>
 	);
 }
