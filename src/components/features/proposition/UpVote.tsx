@@ -24,7 +24,7 @@ function UpVote({ voteCount, propositionId }: UpVoteProps) {
 	return (
 		<button
 			onClick={handleClick}
-			className="flex flex-col border-2 items-center px-8 py-2 rounded-md border-green-600 bg-green-900 bg-opacity-50 hover:bg-opacity-75">
+			className="flex flex-col border-2 items-center px-8 py-2 rounded-md border-green-900 dark:border-green-600 bg-green-600 dark:bg-green-900 dark:bg-opacity-50 hover:bg-opacity-75">
 			<IoIosArrowUp fontSize={24} />
 			<span className="text-xl font-bold">{voteCount}</span>
 		</button>
