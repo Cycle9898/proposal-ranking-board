@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={roboto.className}>
+			<body className={roboto.className + " flex flex-col h-screen"}>
 				<Providers />
 
 				<Header />

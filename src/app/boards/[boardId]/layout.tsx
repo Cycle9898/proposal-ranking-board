@@ -22,7 +22,7 @@ async function BoardLayout({ params, children }: BoardLayoutProps) {
 	});
 
 	return (
-		<main className="flex flex-col gap-4 mt-4 px-16">
+		<main className="flex-1 flex flex-col gap-4 my-5 px-16">
 			<div className="flex items-center gap-8">
 				<Link href="/" title="Back to homepage" aria-label="Back to homepage">
 					<FaArrowLeftLong className="text-3xl" />

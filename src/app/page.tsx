@@ -6,7 +6,7 @@ async function Home() {
 	const boards = await prisma.board.findMany();
 
 	return (
-		<main className="flex flex-col gap-4 mt-4 px-16">
+		<main className="flex-1 flex flex-col gap-4 my-5 px-16">
 			<h2 className="text-3xl font-bold">Boards list</h2>
 
 			<Button as="a" href="/boards/new" className="self-end">
