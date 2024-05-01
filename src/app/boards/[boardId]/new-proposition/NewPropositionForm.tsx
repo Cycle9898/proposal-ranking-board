@@ -7,6 +7,7 @@ import { FormEvent } from "react";
 import toast from "react-hot-toast";
 import { submitPropositionForm } from "./newProposition.action";
 import { CancelButton } from "@/components/features/form/CancelButton";
+import { unknown } from "zod";
 
 type NewPropositionFormProps = {
 	boardId: number;
@@ -23,9 +24,17 @@ function NewPropositionForm({ boardId }: NewPropositionFormProps) {
 
 		submitPropositionForm(proposition, boardId)
 			.then(() => router.push(`/boards/${boardId}`))
-			.catch(error =>
-				toast.error("Error, could not save this proposition.\n Please try again later.", { duration: 6000 })
-			);
+			.catch((error: unknown) => {
+				if (String(error).includes("Unique constraint")) {
+					toast.error("Error, could not save this proposition.\nThis proposition was already suggested", {
+						duration: 6000
+					});
+				} else {
+					toast.error("Error, could not save this proposition.\nPlease try again later.", {
+						duration: 6000
+					});
+				}
+			});
 	};
 
 	return (
