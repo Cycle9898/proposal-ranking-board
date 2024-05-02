@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import { Providers } from "./providers";
 import { Suspense } from "react";
-import LoadingSpinner from "@/components/loading/LoadingSpinner";
+import LoadingSpinner from "@/components/features/loading/LoadingSpinner";
 
 const roboto = Roboto({
 	weight: ["400", "500", "700"],
