@@ -37,7 +37,9 @@ async function BoardPage({ params }: BoardPageProps) {
 
 			<ul className="flex flex-col gap-4">
 				{propositions.map(proposition => (
-					<Proposition key={proposition.id} voteCount={proposition._count.vote} {...proposition} />
+					<li key={proposition.id}>
+						<Proposition voteCount={proposition._count.vote} {...proposition} />
+					</li>
 				))}
 			</ul>
 		</div>
