@@ -3,6 +3,8 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import { Providers } from "./providers";
+import { Suspense } from "react";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 const roboto = Roboto({
 	weight: ["400", "500", "700"],
@@ -26,7 +28,7 @@ export default function RootLayout({
 
 				<Header />
 
-				{children}
+				<Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
 			</body>
 		</html>
 	);
