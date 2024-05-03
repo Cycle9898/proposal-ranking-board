@@ -9,11 +9,12 @@ type HomePageProps = {
 
 async function HomePage({ searchParams }: HomePageProps) {
 	const pageNb = Number(searchParams.page ?? 0);
+	const boardPerPage = 6;
 
 	const totalBoardsNumber = await prisma.board.count();
 	const boards = await prisma.board.findMany({
-		take: 6,
-		skip: Math.max(0, pageNb * 6)
+		take: boardPerPage,
+		skip: Math.max(0, pageNb * boardPerPage)
 	});
 
 	return (
@@ -32,7 +33,11 @@ async function HomePage({ searchParams }: HomePageProps) {
 				))}
 			</ul>
 
-			<PaginationCommands className="self-center" totalPage={Math.ceil(totalBoardsNumber / 6)} pageNb={pageNb} />
+			<PaginationCommands
+				className="self-center"
+				totalPage={Math.ceil(totalBoardsNumber / boardPerPage)}
+				pageNb={pageNb}
+			/>
 		</main>
 	);
 }
