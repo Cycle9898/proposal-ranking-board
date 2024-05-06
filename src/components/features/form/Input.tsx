@@ -6,8 +6,8 @@ type InputProps = ComponentPropsWithoutRef<"input"> & {
 
 export const Input = ({ label, ...props }: InputProps) => {
 	return (
-		<div className="mb-6">
-			<label htmlFor="default-input" className="block mb-2 text-sm font-medium  text-white">
+		<div className="mb-6 w-full">
+			<label htmlFor="default-input" className="block mb-2 text-sm font-medium dark:text-white">
 				{label}
 			</label>
 			<input
