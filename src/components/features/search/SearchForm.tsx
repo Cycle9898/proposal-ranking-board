@@ -12,10 +12,8 @@ type SearchFormPRops = {
 	baseUrl?: string;
 };
 
-function SearchForm({ label, className, baseUrl }: SearchFormPRops) {
+function SearchForm({ label, className, baseUrl = "/" }: SearchFormPRops) {
 	const router = useRouter();
-
-	if (!baseUrl) baseUrl = "/";
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();

@@ -10,7 +10,7 @@ type PaginationButtonProps = {
 	className?: string;
 };
 
-function PaginationCommands({ totalPage, pageNb, baseUrl, className }: PaginationButtonProps) {
+function PaginationCommands({ totalPage, pageNb, baseUrl = "/", className }: PaginationButtonProps) {
 	const router = useRouter();
 
 	const handlePageChange = (direction: "next" | "previous") => {
@@ -25,12 +25,7 @@ function PaginationCommands({ totalPage, pageNb, baseUrl, className }: Paginatio
 			});
 		}
 
-		let url;
-		if (baseUrl) {
-			url = `${baseUrl}?${searchParams.toString()}`;
-		} else {
-			url = `/?${searchParams.toString()}`;
-		}
+		const url = `${baseUrl}?${searchParams.toString()}`;
 
 		router.push(url);
 	};
