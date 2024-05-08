@@ -2,6 +2,8 @@ import { prisma } from "@/db/prisma";
 import { Button } from "@/components/features/form/Button";
 import Proposition from "@/components/features/proposition/PropositionLine";
 import PaginationCommands from "@/components/features/pagination/PaginationCommands";
+import SearchForm from "@/components/features/search/SearchForm";
+import { Prisma } from "@prisma/client";
 
 type BoardPageProps = {
 	params: { boardId: string };
@@ -11,19 +13,29 @@ type BoardPageProps = {
 async function BoardPage({ params, searchParams }: BoardPageProps) {
 	const boardId = parseInt(params.boardId);
 	const pageNb = Number(searchParams.page ?? 0);
-	const propositionsPerPage = 4;
+	const searchTerms = searchParams.search;
+	const propositionsPerPage = 3;
+
+	const propositionWhereQuery: Prisma.PropositionWhereInput | undefined = {
+		AND: [
+			Array.isArray(searchTerms)
+				? {
+						OR: searchTerms.map(term => ({ title: { contains: term, mode: "insensitive" } }))
+				  }
+				: searchTerms
+				? { title: { contains: searchTerms, mode: "insensitive" } }
+				: {},
+			{ boardId: boardId }
+		]
+	};
 
 	const totalPropositionsNumber = await prisma.proposition.count({
-		where: {
-			boardId: boardId
-		}
+		where: propositionWhereQuery
 	});
 	const propositions = await prisma.proposition.findMany({
 		take: propositionsPerPage,
 		skip: Math.max(0, pageNb * propositionsPerPage),
-		where: {
-			boardId: boardId
-		},
+		where: propositionWhereQuery,
 		orderBy: {
 			vote: {
 				_count: "desc"
@@ -46,6 +58,8 @@ async function BoardPage({ params, searchParams }: BoardPageProps) {
 				Suggest a proposition
 			</Button>
 
+			<SearchForm className="max-w-3xl" label="Search a proposition" baseUrl={`/boards/${boardId}`} />
+
 			<ul className="flex-1 flex flex-col gap-4">
 				{propositions.map(proposition => (
 					<li key={proposition.id}>
@@ -59,6 +73,7 @@ async function BoardPage({ params, searchParams }: BoardPageProps) {
 				totalPage={Math.ceil(totalPropositionsNumber / propositionsPerPage)}
 				pageNb={pageNb}
 				baseUrl={`/boards/${boardId}`}
+				searchTerms={searchTerms}
 			/>
 		</div>
 	);
