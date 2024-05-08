@@ -11,15 +11,15 @@ type HomePageProps = {
 
 async function HomePage({ searchParams }: HomePageProps) {
 	const pageNb = Number(searchParams.page ?? 0);
-	const searchTerm = searchParams.search;
+	const searchTerms = searchParams.search;
 	const boardPerPage = 5;
 
-	const boardWhereQuery: Prisma.BoardWhereInput | undefined = Array.isArray(searchTerm)
+	const boardWhereQuery: Prisma.BoardWhereInput | undefined = Array.isArray(searchTerms)
 		? {
-				OR: searchTerm.map(term => ({ title: { contains: term, mode: "insensitive" } }))
+				OR: searchTerms.map(term => ({ title: { contains: term, mode: "insensitive" } }))
 		  }
-		: searchTerm
-		? { title: { contains: searchTerm, mode: "insensitive" } }
+		: searchTerms
+		? { title: { contains: searchTerms, mode: "insensitive" } }
 		: undefined;
 
 	const totalBoardsNumber = await prisma.board.count({
@@ -53,6 +53,7 @@ async function HomePage({ searchParams }: HomePageProps) {
 				className="self-center"
 				totalPage={Math.ceil(totalBoardsNumber / boardPerPage)}
 				pageNb={pageNb}
+				searchTerms={searchTerms}
 			/>
 		</main>
 	);

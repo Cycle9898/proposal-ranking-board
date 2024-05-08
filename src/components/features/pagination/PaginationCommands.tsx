@@ -8,10 +8,23 @@ type PaginationButtonProps = {
 	pageNb: number;
 	baseUrl?: string;
 	className?: string;
+	searchTerms?: string | string[] | undefined;
 };
 
-function PaginationCommands({ totalPage, pageNb, baseUrl = "/", className }: PaginationButtonProps) {
+function PaginationCommands({ totalPage, pageNb, baseUrl = "/", className, searchTerms }: PaginationButtonProps) {
 	const router = useRouter();
+
+	const addSearchQueries = (searchTerms: string | string[] | undefined) => {
+		let chainedSearchQueries = "";
+
+		if (Array.isArray(searchTerms)) {
+			searchTerms.forEach(term => (chainedSearchQueries += `&search=${term}`));
+		} else if (searchTerms) {
+			chainedSearchQueries += `&search=${searchTerms}`;
+		}
+
+		return chainedSearchQueries;
+	};
 
 	const handlePageChange = (direction: "next" | "previous") => {
 		let searchParams;
@@ -25,7 +38,7 @@ function PaginationCommands({ totalPage, pageNb, baseUrl = "/", className }: Pag
 			});
 		}
 
-		const url = `${baseUrl}?${searchParams.toString()}`;
+		const url = `${baseUrl}?${searchParams.toString()}${addSearchQueries(searchTerms)}`;
 
 		router.push(url);
 	};
